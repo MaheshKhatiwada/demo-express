@@ -32,20 +32,11 @@ router.put("/:id", async (req, res) => {
     },
     { new: true }
   )
-    .then((account) => res.send(account))
-    .catch((err) =>
-      res.status(400).send("The account with given id is not found")
-    );
+  res.send(account);
 });
+
 router.delete("/:id", async (req, res) => {
-  const account = await Account.findByIdAndDelete(req.params.id)
-    .catch((err) =>
-    res.status(404).send("The account with given id is not found")
-  );
-
-  //if (!account)
-  //return res.status(404).send("The account with given id is not found");
-
+  const account = await Account.findByIdAndDelete(req.params.id);
   res.send(account);
 });
 
