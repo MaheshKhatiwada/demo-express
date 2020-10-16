@@ -12,6 +12,12 @@ app.use(express.json());
 app.use("/api/account", account);
 app.use(error);
 
+winston.exceptions.handle(new winston.transports.File({ filename: 'logfile.log' }));
+
+process.on('unhandledRejection', (ex) => {
+  throw ex;
+});
+
 winston.add(new winston.transports.File({ filename: 'logfile.log' }));
 winston.add(new winston.transports.MongoDB({db: 'mongodb://localhost/account',level:'error'}));
 
